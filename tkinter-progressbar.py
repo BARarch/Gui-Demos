@@ -11,18 +11,20 @@ class Application(Frame):
         self.QUIT['text'] = "QUIT"
         self.QUIT['fg'] = "red"
         self.QUIT['command'] = self.quit
-        
         self.QUIT.pack({"side": "left"})
-        self.hi_there = Button(self)
-        self.hi_there["text"] = "Hello,"
-        self.hi_there["command"] = self.say_hi
         
-        self.hi_there.pack({"side": "left"})
+        self.pb = ttk.Progressbar(self.parent, orient='horizontal', length=400, mode='determinate')
+        self.pb.pack({'side':'right'})
         
     def __init__(self, master=None):
         Frame.__init__(self, master)
+        self.parent = master
         self.pack()
         self.createWidgets()
+        self.pb["maximum"] = 200
+        self.pb.start()
+        
+        #self.pb["value"] = 30
         
 root = Tk()
 app = Application(master=root)
