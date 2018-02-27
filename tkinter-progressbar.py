@@ -1,4 +1,5 @@
 import sys
+import time
 from tkinter import *
 import tkinter.ttk as ttk
 
@@ -13,7 +14,13 @@ class Application(Frame):
         self.QUIT['command'] = self.quit
         self.QUIT.pack({"side": "left"})
         
-        self.pb = ttk.Progressbar(self.parent, orient='horizontal', length=400, mode='determinate')
+        self.pgMove = Button(self)
+        self.pgMove['text'] = "Move"
+        self.pgMove['fg'] = "green"
+        self.pgMove['command'] = self.move_progress
+        self.pgMove.pack({"side": "left"})
+        
+        self.pb = ttk.Progressbar(self, orient='horizontal', length=400, mode='determinate')
         self.pb.pack({'side':'right'})
         
     def __init__(self, master=None):
@@ -22,7 +29,14 @@ class Application(Frame):
         self.pack()
         self.createWidgets()
         self.pb["maximum"] = 200
-        self.pb.start()
+        #self.pb['value'] = 50
+        
+    def move_progress(self):
+        for i in range(20):
+            self.pb.step()
+            self.update()
+            time.sleep(.02)
+        #self.pb.start()
         
         #self.pb["value"] = 30
         
