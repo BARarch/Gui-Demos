@@ -1,12 +1,15 @@
 from mktinter import *
 import tkinter.ttk as ttk
 import time
+import threading
 
-def handle_click():
-    def callback():
-        total = sum(range(1000000000))
-        root.on_main_thread(lambda: label.config(text=total))
-    t = threading.Thread(target=callback)
+
+def callback():
+    total = sum(range(100000000))
+    print(total)
+    #label.config(text=total)
+    
+def handle_click():    
     t.start()
 
 def move_progress():
@@ -16,6 +19,7 @@ def move_progress():
         time.sleep(.02)
 
 root = Tk()
+t = threading.Thread(target=callback, daemon=True)
 Button(root, text='Add it up', command=handle_click).pack()
 pgMove = Button(root)
 pgMove['text'] = "Move"
